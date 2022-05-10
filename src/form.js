@@ -11,7 +11,7 @@ const {
 
 const formInput = ({ label, value }) => {
   const inputLabel = createLabel({ text: label, classes: ['form-label'] });
-  const input = createInput({ text: value, classes: ['form-input'] })
+  const input = createInput({ text: value, classes: ['form-input'] });
   return createHtml({
     tag: 'section',
     content: inputLabel + input,
@@ -91,9 +91,9 @@ const formPage = (form) => {
   });
 };
 
-const main = (formFilePath) => {
+const main = (jsonFile) => {
   try {
-    const form = JSON.parse(fs.readFileSync(formFilePath, 'utf8'));
+    const form = JSON.parse(fs.readFileSync(jsonFile, 'utf8'));
     fs.writeFileSync('./public/index.html', formPage(form), 'utf8');
     return 'SUCCESS';
   } catch (error) {
@@ -101,4 +101,6 @@ const main = (formFilePath) => {
   }
 };
 
-console.log(main(process.argv[2]));
+const [, , jsonFile] = process.argv;
+
+console.log(main(jsonFile));
